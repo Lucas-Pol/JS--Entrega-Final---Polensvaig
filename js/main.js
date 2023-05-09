@@ -13,25 +13,34 @@ let priceDisc3 = 300;
 function newPurchase (){
     let name = discName;
     numberDisc ++;
-    switch (name) {
-        case "disc1":
-            finalPrice = numberDisc * priceDisc1;
-            console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);
-            break;
-            
-        case "disc2":
-            finalPrice = numberDisc * priceDisc2;
-            console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);            
-            break;
-
-        case "disc3":
-            finalPrice = numberDisc * priceDisc3;
-            console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);            
-            break;
-
-        default:
-            break;
+    
+    if (numberDisc < 4) {
+        
+        switch (name) {
+            case "disc1":
+                finalPrice = numberDisc * priceDisc1;
+                console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);
+                break;
+                
+            case "disc2":
+                finalPrice = numberDisc * priceDisc2;
+                console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);            
+                break;
+    
+            case "disc3":
+                finalPrice = numberDisc * priceDisc3;
+                console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);            
+                break;
+    
+            default:
+                break;
+        }
+       
+    } else {
+        alert("Por haber comprado más de cuatro discos tenes un 10% de descuento COD:DESCUENTO")
+        //función de descuento a desarrollar en próximas entregas
     }
+    
 }
 
 
@@ -43,5 +52,13 @@ function clearCart (){
     finalPrice = 0;
     console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);
 };
+
+
+
+//conditional if
+if (numberDisc > 4) {
+
+}
+
 
 
