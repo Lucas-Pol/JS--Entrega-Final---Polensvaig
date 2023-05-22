@@ -9,6 +9,8 @@ let priceDisc3 = 300;
 
 
 
+
+
 //new purchase function
 function newPurchase (){
     let name = discName;
@@ -38,7 +40,7 @@ function newPurchase (){
        
     } else {
         alert("Por haber comprado más de cuatro discos tenes un 10% de descuento COD:DESCUENTO")
-        //función de descuento a desarrollar en próximas entregas
+        //future discount function
     }
     
 }
