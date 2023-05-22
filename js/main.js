@@ -59,7 +59,7 @@ function checkout (){
     //finalPrice
     //pedir datos del usuario por prompt para completar la compra
     //alert de compra finalizada
-    //resetear las variables a 0
+    //resetear las variables a 0 
 }
 
 //new purchase function
@@ -99,7 +99,6 @@ function clearCart (){
     finalPrice = 0;
     console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);
 };
-
 
 
 
