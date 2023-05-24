@@ -1,14 +1,7 @@
-/* 
-   1) El usuario va a utilizar la función addProd para pushear al array cart los discos que quiere
-   2) el usuario utilizará la función newPurchase para empezar a finalizar la compra, en esta le dará la posibilidad de ingresar un código de descuento a través de un prompt. La función validará que el código de descuento exista, cuál es y calculará el precio final para así activar la función checkout
-   3) la función checkout tomará los datos del cliente a través de prompt y devolverá un alert de compra finalizada
-
-*/
 
 
 let numberDisc = 0;
 let finalPrice = 0;
-let discName = "disc1"; //this value can be changed to "disc1", "disc2" or "disc3" to test the function 
 let priceWithDiscount = 0;
 let cardText = document.getElementById("carro");
 let cardBtn = document.getElementById("cardbtn")
@@ -100,19 +93,13 @@ function discount (){
 function clearCart (){
     numberDisc = 0;
     finalPrice = 0;
-    discName = "";
     priceWithDiscount = 0;
     cart = [];
-    return (cardText.textContent = "Gracias por comprar", cardBtn.innerHTML =`<a href="#" class="btn btn-success" onclick="">Compra Finalizada</a>`);
+    // i was trying to test a goodbye message and trying to test the .innerHTML method but this doesn't work
+    /* return (cardText.textContent = "Gracias por comprar", cardBtn.innerHTML =`<a href="#" class="btn btn-success" onclick="">Compra Finalizada</a>`);  */
 }; 
 
 
-/* //the user select disc "ID:1"
-addProd(1);
 
-//the user also select disc "ID:3"
-addProd(3);
 
-//function discount
-discount(); */
 
