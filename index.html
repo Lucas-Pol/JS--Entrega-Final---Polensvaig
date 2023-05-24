@@ -21,27 +21,47 @@
     </header>
 
     <main>
+      <!-- here are the cds -->
         <div class="row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Clickeá acá para comprar tu CD</h5>
-                  <p class="card-text">Con cada click vas a estar sumando un CD a tu carrito</p>
-                  <a href="#" class="btn btn-warning" id="boton" onclick="newPurchase()">COMPRAR</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Clickeá acá para resetear el carrito</h5>
-                  <p class="card-text">Tu carrito se vaciará</p>
-                  <a href="#" class="btn btn-danger" id="botonClear" onclick="clearCart()">VACIAR CARRO</a>
-                </div>
+          <div class="col-3 g-md-5 mt-4">
+            <div class="card" style="width: 18rem;">
+              <img src="https://i.pinimg.com/564x/7f/37/39/7f3739bd5861f08ded41edf9f422828d.jpg" class="card-img-top" alt="cd">
+              <div class="card-body">
+                <h5 class="card-title">Disc 1</h5>
+                <a href="#" class="btn btn-primary" onclick="addProd(1)">Agregar</a>
               </div>
             </div>
           </div>
-        </main>    
+          <div class="col-3 mt-4">
+            <div class="card" style="width: 18rem;">
+              <img src="https://i.pinimg.com/564x/7f/37/39/7f3739bd5861f08ded41edf9f422828d.jpg" class="card-img-top" alt="cd">
+              <div class="card-body">
+                <h5 class="card-title">Disc 2</h5>
+                <a href="#" class="btn btn-primary" onclick="addProd(2)">Agregar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mt-4">
+            <div class="card" style="width: 18rem;">
+              <img src="https://i.pinimg.com/564x/7f/37/39/7f3739bd5861f08ded41edf9f422828d.jpg" class="card-img-top" alt="cd">
+              <div class="card-body">
+                <h5 class="card-title">Disc 3</h5>
+                <a href="#" class="btn btn-primary" onclick="addProd(3)">Agregar</a>
+              </div>
+            </div>
+          </div>
+          <!-- here is the cart -->
+          <div class="col-3 mt-4">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Carrito de compras</h5>
+                <p class="card-text" id="carro">El carrito se encuentra vacío</p>
+                <a href="#" class="btn btn-primary" onclick="discount()" id="cardbtn">Comprar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>    
     
     <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

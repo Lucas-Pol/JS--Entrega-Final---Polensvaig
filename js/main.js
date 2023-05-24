@@ -9,6 +9,9 @@
 let numberDisc = 0;
 let finalPrice = 0;
 let discName = "disc1"; //this value can be changed to "disc1", "disc2" or "disc3" to test the function 
+let priceWithDiscount = 0;
+let cardText = document.getElementById("carro");
+let cardBtn = document.getElementById("cardbtn")
 
 
 //sales cart array
@@ -37,58 +40,58 @@ let cds = [
 
 
 
-//discount code
-
-let discountCodeArray = ["DESC10", "DESC20", "DESC30"];
-let discountCode = "";
-
-
-
-
 //add to cart
 
-function addProd (){ 
-    //pushear el producto seleccionado al array carrito
-    //ir calculando el precio total de la compra al momento
+function addProd (id){ 
+    let priceCalc = 0
+    for (let i = 0; i < cds.length; i++) {
+        // check the ID
+        if (cds[i].id === id) {
+         cart.push(cds[i]);
+         //calculate final price
+         priceCalc = finalPrice + cds[i].price;
+         finalPrice=priceCalc;
+        } 
+      }
+      console.log(finalPrice);
+      return cardText.textContent = `En el carrito hay: ${cart.length} discos 
+      por un valor de $ ${finalPrice}`; 
 }
 
 
 //checkout function
-function checkout (){
-    //esta funcion es la que le va a cobrar a la persona
-    //finalPrice
-    //pedir datos del usuario por prompt para completar la compra
-    //alert de compra finalizada
-    //resetear las variables a 0 
+function checkout (key, desc){
+    cardText.textContent = `En el carrito hay: ${cart.length} discos 
+                por un valor de $ ${key} y se aplicó un descuento del ${desc}`;
+    let nombre = prompt("Ingrese su nombre");
+    let apellido = prompt ("Ingrese su apellido") 
+    let mail = prompt ("Ingrese su email") 
+    let tarjeta = prompt ("Ingrese el número de su tarjeta de crédito") 
+    console.log(`Estimado ${nombre} ${apellido}, el monto a pagar es de $ ${key}, se enviará la factura a ${mail}.`);
+    clearCart();
 }
 
-//new purchase function
-function newPurchase (){
-    
-    //abrir prompt para imputear el código de descuento si lo tiene y guardar en discountCode
-    if (discountCode) { //validar si tiene descuento 
-        //validar qué tipo de descuento es
-        switch (discountCode) {
-            case DESC10:
-                //calcular descuento y precio final
-                checkout (finalPrice);
+//discount function
+function discount (){
+    let discountCode = prompt ("Ingrese su código de descuento");
+           switch (discountCode) {
+            case "DESC10":
+                priceWithDiscount = finalPrice - (finalPrice * 0.1) 
+                checkout (priceWithDiscount, "10%");       
                 break;
-            case DESC20:
-                //calcular descuento y precio final
-                checkout (finalPrice);
+            case "DESC20":
+                priceWithDiscount = finalPrice - (finalPrice * 0.2); 
+                checkout (priceWithDiscount, "20%");    
                 break;
-            case DESC30:
-                //calcular descuento y precio final
-                checkout (finalPrice);
+            case "DESC30":
+                priceWithDiscount = finalPrice - (finalPrice * 0.3);
+                checkout (priceWithDiscount, "30%");    
                 break;
             default:
-                alert("Tu código de descuento no es válido y te cobraremos el total de: $ ${finalPrice}")
-                checkout (finalPrice);
+                console.log("No ingresaste ningún código o el ingresado no es válido");
+                checkout (finalPrice, "0%");
                 break;
         }
-    } else {
-        checkout (finalPrice);
-    }
 }
 
 
@@ -97,10 +100,19 @@ function newPurchase (){
 function clearCart (){
     numberDisc = 0;
     finalPrice = 0;
-    console.log("Compraste: " + numberDisc + " discos, por un total de $" + finalPrice);
-};
+    discName = "";
+    priceWithDiscount = 0;
+    cart = [];
+    return (cardText.textContent = "Gracias por comprar", cardBtn.innerHTML =`<a href="#" class="btn btn-success" onclick="">Compra Finalizada</a>`);
+}; 
 
 
+/* //the user select disc "ID:1"
+addProd(1);
 
+//the user also select disc "ID:3"
+addProd(3);
 
+//function discount
+discount(); */
 
