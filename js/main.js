@@ -101,6 +101,9 @@ function clearCart (){
 
 //purchase function 
 function realizarCompra() {
+    //this ir the form
+    let modal = document.getElementById('formularioCompra');
+    $('#formularioCompra').modal('show');
     // Get the values from the form 
     let nombre = document.getElementById('nombre').value;
     let apellido = document.getElementById('apellido').value;
@@ -125,6 +128,13 @@ function realizarCompra() {
     console.log(compraJSON);
   }
   
+
+//close modal function
+function cerrarModal(){
+    let modal = document.getElementById('formularioCompra');
+    $('#formularioCompra').modal('hide');
+    /* checkout(); */
+}
 
 
 
