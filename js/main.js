@@ -1,10 +1,9 @@
-
-
+//setting variables
 let numberDisc = 0;
 let finalPrice = 0;
 let priceWithDiscount = 0;
 let cardText = document.getElementById("carro");
-let cardBtn = document.getElementById("cardbtn")
+let cardBtn = document.getElementById("cardbtn");
 
 
 //sales cart array
@@ -34,9 +33,8 @@ let cds = [
 
 
 //add to cart
-
 function addProd (id){ 
-    let priceCalc = 0
+    let priceCalc = 0;
     for (let i = 0; i < cds.length; i++) {
         // check the ID
         if (cds[i].id === id) {
@@ -56,10 +54,10 @@ function addProd (id){
 function checkout (key, desc){
     cardText.textContent = `En el carrito hay: ${cart.length} discos 
                 por un valor de $ ${key} y se aplicó un descuento del ${desc}`;
-    let nombre = prompt("Ingrese su nombre");
-    let apellido = prompt ("Ingrese su apellido") 
-    let mail = prompt ("Ingrese su email") 
-    let tarjeta = prompt ("Ingrese el número de su tarjeta de crédito") 
+    let nombre = document.getElementById('nombre').value;
+    let apellido = document.getElementById('apellido').value;
+    let direccion = document.getElementById('direccion').value;
+    let email = document.getElementById('email').value;
     console.log(`Estimado ${nombre} ${apellido}, el monto a pagar es de $ ${key}, se enviará la factura a ${mail}.`);
     clearCart();
 }
@@ -95,10 +93,38 @@ function clearCart (){
     finalPrice = 0;
     priceWithDiscount = 0;
     cart = [];
-    // i was trying to test a goodbye message and trying to test the .innerHTML method but this doesn't work
-    /* return (cardText.textContent = "Gracias por comprar", cardBtn.innerHTML =`<a href="#" class="btn btn-success" onclick="">Compra Finalizada</a>`);  */
+    cardText.textContent = "Gracias por comprar";
+    cardBtn.innerHTML = `<a href="#" class="btn btn-success" onclick="">Compra Finalizada</a>`;
 }; 
 
+
+
+//purchase function 
+function realizarCompra() {
+    // Get the values from the form 
+    let nombre = document.getElementById('nombre').value;
+    let apellido = document.getElementById('apellido').value;
+    let direccion = document.getElementById('direccion').value;
+    let email = document.getElementById('email').value;
+  
+    // Create an object with the purchase data
+    let compra = {
+      nombre: nombre,
+      apellido: apellido,
+      direccion: direccion,
+      email: email,
+    };
+  
+    // Convert the object to JSON
+    let compraJSON = JSON.stringify(compra);
+  
+    // Save the JSON to Local Storage
+    localStorage.setItem('compra', compraJSON);
+  
+    // Display the JSON in the console
+    console.log(compraJSON);
+  }
+  
 
 
 
