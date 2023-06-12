@@ -108,3 +108,4 @@ function discount() {
 // Update cart text on page load
 updateCartText();
 
+
