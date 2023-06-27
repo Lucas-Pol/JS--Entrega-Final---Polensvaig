@@ -192,11 +192,11 @@ function clearCart() {
 
 /* 
 
-2) agregar los precios de los discos dentro de las cards 
-3) ITERADORES: meter los productos con un foreach o iterador para que sean dinamicos
+
+
 5) al ejecutar la clear function (tanto por haber comprado como por vaciar el carro), borrar el localstorage y el carrito me tira UNDEFINED
-6) AJAX, 
-8) promesas (fetch) para datos estáticos o una API
+
+
 9) CHEQUEAR LOS "ONCLICK - addprod" de los botones de las cards
 10) ver de agregar un mensaje de que se aplicó el descuento, en el sweet alert
 
