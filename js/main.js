@@ -22,6 +22,64 @@ let cds = [
   },
 ];
 
+//Creates the disc cards
+function createDiscCard(){
+  fetch("dataBase.json")
+  .then(resp => resp.json())
+  .then(data => {
+    console.log(data);
+    const discWrapper = document.getElementById("disc-wrapper");
+
+    data.forEach(disc => {
+      const column = document.createElement("div");
+      column.className = "col-3 mt-4";
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.style = "width: 18rem";
+
+      const img = document.createElement("img");
+      img.src = `${disc.foto}`;
+      img.className = "card-img-top";
+      img.alt = "cd";
+
+      const cardBody = document.createElement("div");
+      cardBody.className = "card-body";
+
+      const cardTitle = document.createElement("h5");
+      cardTitle.className = "card-title";
+      cardTitle.textContent = `${disc.nombre} - $${disc.precio}`;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn btn-primary";
+      button.setAttribute("onclick", `addProd(${disc.id})`);
+      button.textContent = "Agregar";
+
+      cardBody.appendChild(cardTitle);
+      cardBody.appendChild(button);
+
+      card.appendChild(img);
+      card.appendChild(cardBody);
+
+      column.appendChild(card);
+
+      discWrapper.appendChild(column);
+
+      });
+  })
+
+  .catch(er => {
+    console.log("Este es el error: ", er);
+  })
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  createDiscCard();
+})
+
+
+
 // Add to cart
 function addProd(id) {
   const selectedDisc = cds.find(disc => disc.id === id);
@@ -124,8 +182,9 @@ function saveStorage(price){
 function clearCart() {
   finalPrice = 0;
   cart = [];
-  updateCartText();
-}
+  updateCartText(); //EL CARRITO ME TIRA UNDEFINED
+  //borrar el local storage al haber  comprado y al vaciar carro
+  }
 
 
 
@@ -135,12 +194,12 @@ function clearCart() {
 
 2) agregar los precios de los discos dentro de las cards 
 3) ITERADORES: meter los productos con un foreach o iterador para que sean dinamicos
-4) 
-5) al ejecutar la clear function (tanto por haber comprado como por vaciar el carro), borrar el localstorage
+5) al ejecutar la clear function (tanto por haber comprado como por vaciar el carro), borrar el localstorage y el carrito me tira UNDEFINED
 6) AJAX, 
-7) 
 8) promesas (fetch) para datos estáticos o una API
 9) CHEQUEAR LOS "ONCLICK - addprod" de los botones de las cards
+10) ver de agregar un mensaje de que se aplicó el descuento, en el sweet alert
+
 
 opcional:
 - si el carrito está vacío al apretar "comprar" que tiré cartel de error (sweetalert)

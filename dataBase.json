@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nombre": "La cumbia del ciclo",
+        "foto": "https://i.pinimg.com/736x/4e/bf/8f/4ebf8f1a81053bd3b63ec26f3435e97a.jpg",
+        "precio": 100
+    },
+
+    {
+        "id": 2,
+        "nombre": "Binomio",
+        "foto": "https://i.pinimg.com/564x/42/5f/af/425fafc80cc68b467c6c1e21438ff7c8.jpg",
+        "precio": 200
+    },
+
+    {
+        "id": 3,
+        "nombre": "Ana María",
+        "foto": "https://i.pinimg.com/564x/5a/16/60/5a1660671f748007d4866f961472779e.jpg",
+        "precio": 300
+    }
+
+]
