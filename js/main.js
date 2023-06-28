@@ -56,8 +56,15 @@ function createDiscCard(){
       button.setAttribute("onclick", `addProd(${disc.id})`);
       button.textContent = "Agregar";
 
+      const buttonRemove = document.createElement("button");
+      buttonRemove.type = "button";
+      buttonRemove.className = "btn btn-primary";
+      buttonRemove.setAttribute("onclick", `removeProd(${disc.id})`);
+      buttonRemove.textContent = "Quitar";
+
       cardBody.appendChild(cardTitle);
       cardBody.appendChild(button);
+      cardBody.appendChild(buttonRemove);
 
       card.appendChild(img);
       card.appendChild(cardBody);
@@ -90,11 +97,28 @@ function addProd(id) {
   }
 }
 
+// Remove from cart
+function removeProd(id) {
+  const selectedIndex = cart.findIndex((disc) => disc.id === id);
+  if (selectedIndex !== -1) {
+    const removedDisc = cart.splice(selectedIndex, 1)[0];
+    finalPrice -= removedDisc.price;
+    updateCartText(finalPrice);
+  }
+}
+
+
+
 // Update cart text
 function updateCartText(price) {
   const cartText = document.getElementById("carro");
   const itemCount = cart.length;
-  cartText.textContent = `En el carrito hay: ${itemCount} discos por un valor de $ ${price}`;
+  
+  if (itemCount === 0) {
+    cartText.textContent = "El carrito se encuentra vacío";
+  } else {
+    cartText.textContent = `En el carrito hay: ${itemCount} discos por un valor de $ ${price}`;
+  }
 }
 
 // Open purchase modal
@@ -104,64 +128,68 @@ function openModal() {
 
 // Purchase function
 function realizarCompra() {
+  if (cart.length === 0) {
+    Swal.fire({
+      title: 'Error',
+      icon: 'error',
+      text: 'No se puede realizar la compra cuando el carrito está vacío.',
+      confirmButtonText: 'Cerrar'
+    });
+    return;
+  }
+
+  if (!$('#formularioCompra').hasClass('show')) {
+    $('#formularioCompra').modal('show');
+    return;
+  }
+
   const nombre = document.getElementById('nombre').value;
   const apellido = document.getElementById('apellido').value;
   const direccion = document.getElementById('direccion').value;
   const email = document.getElementById('email').value;
   const descuento = document.getElementById('descuento').value;
 
-let checkOutMsg = (value)=>{
+  if (!nombre || !apellido || !direccion || !email) {
+    Swal.fire({
+      title: 'Error',
+      icon: 'error',
+      text: 'Por favor complete todos los campos del formulario de compra.',
+      confirmButtonText: 'Cerrar'
+    });
+    return;
+  }
+
+  let priceWithDiscount = finalPrice;
+
+  if (descuento === "DESC10") {
+    priceWithDiscount *= 0.9;
+  } else if (descuento === "DESC20") {
+    priceWithDiscount *= 0.8;
+  } else if (descuento === "DESC30") {
+    priceWithDiscount *= 0.7;
+  } else if (descuento) {
+    Swal.fire({
+      title: 'Error',
+      icon: 'error',
+      text: 'El código de descuento ingresado no es válido.',
+      confirmButtonText: 'Cerrar'
+    });
+    return;
+  }
+
   Swal.fire({
     title: 'Tu compra finalizó con éxito!',
     icon: 'success',
-    text: `Estimado ${nombre} ${apellido}, el monto a pagar es de $ ${value} y se enviará la factura a ${email}.`,
-    confirmButtonText: 'Cerrar',
-  }).then(()=>{
-    //aca ejecuto el clear function dsp del update
-  }).then(()=>{
-    updateCartText(value);   
-  })
+    text: `Estimado ${nombre} ${apellido}, el monto a pagar es de $ ${priceWithDiscount} y se enviará la factura a ${email}.`,
+    confirmButtonText: 'Cerrar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $('#formularioCompra').modal('hide');
+      clearCart(true);
+    }
+  });
 }
 
-if (!nombre || !apellido || !direccion || !email) {
-    console.log("Por favor completa todos los campos del formulario.");
-    return;
-  } 
-
-if(descuento){
-    let priceWithDiscount = finalPrice;
-    $('#formularioCompra').modal('hide');
-    switch (descuento) {
-    case "DESC10":
-      priceWithDiscount *= 0.9;
-      saveStorage(priceWithDiscount);
-      checkOutMsg(priceWithDiscount);      
-      break;
-    case "DESC20":
-      priceWithDiscount *= 0.8;
-      saveStorage(priceWithDiscount);
-      checkOutMsg(priceWithDiscount);
-      break;
-    case "DESC30":
-      priceWithDiscount *= 0.7;
-      saveStorage(priceWithDiscount);
-      checkOutMsg(priceWithDiscount);
-      break;
-    default:
-        Swal.fire({
-        title: 'El código de descuento ingresado no es válido',
-        icon: 'warning',
-        confirmButtonText: 'Cerrar'
-      }).then(()=>{
-        $('#formularioCompra').modal('show');
-      });
-      break;
-  }} else {
-    saveStorage(finalPrice);
-    $('#formularioCompra').modal('hide');
-    checkOutMsg(finalPrice);
-  } 
-}
 
 //Save in local storage
 function saveStorage(price){
@@ -179,31 +207,38 @@ function saveStorage(price){
 }
 
 // Clear cart
-function clearCart() {
-  finalPrice = 0;
+function clearCart(fromCheckout = false) {
   cart = [];
-  updateCartText(); //EL CARRITO ME TIRA UNDEFINED
-  //borrar el local storage al haber  comprado y al vaciar carro
+  finalPrice = 0;
+  updateCartText(finalPrice);
+  localStorage.removeItem('compra');
+
+  if (fromCheckout) {
+    $("#formularioCompra").modal("hide");
+    document.getElementById('nombre').value = '';
+    document.getElementById('apellido').value = '';
+    document.getElementById('direccion').value = '';
+    document.getElementById('email').value = '';
+    location.reload(); 
   }
+}
+
+
+
+
+
+
+
+
 
 
 
 
 
 /* 
-
-
-
-5) al ejecutar la clear function (tanto por haber comprado como por vaciar el carro), borrar el localstorage y el carrito me tira UNDEFINED
-
-
-9) CHEQUEAR LOS "ONCLICK - addprod" de los botones de las cards
-10) ver de agregar un mensaje de que se aplicó el descuento, en el sweet alert
-
-
 opcional:
 - si el carrito está vacío al apretar "comprar" que tiré cartel de error (sweetalert)
 - tunear un poco la web (cambiar fotos de cd's, poner algun fondito)
 - ver de agregar boton de "quitar" al card de los cd's
 
-*/
+ */
