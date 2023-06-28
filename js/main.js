@@ -52,13 +52,13 @@ function createDiscCard(){
 
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "btn btn-primary";
+      button.className = "btn btn-secondary";
       button.setAttribute("onclick", `addProd(${disc.id})`);
       button.textContent = "Agregar";
 
       const buttonRemove = document.createElement("button");
       buttonRemove.type = "button";
-      buttonRemove.className = "btn btn-primary";
+      buttonRemove.className = "btn btn-dark";
       buttonRemove.setAttribute("onclick", `removeProd(${disc.id})`);
       buttonRemove.textContent = "Quitar";
 
@@ -151,9 +151,8 @@ function realizarCompra() {
 
   if (!nombre || !apellido || !direccion || !email) {
     Swal.fire({
-      title: 'Error',
-      icon: 'error',
-      text: 'Por favor complete todos los campos del formulario de compra.',
+      title: 'Por favor complete todos los campos del formulario de compra.',
+      icon: 'warning',
       confirmButtonText: 'Cerrar'
     });
     return;
@@ -169,9 +168,8 @@ function realizarCompra() {
     priceWithDiscount *= 0.7;
   } else if (descuento) {
     Swal.fire({
-      title: 'Error',
-      icon: 'error',
-      text: 'El código de descuento ingresado no es válido.',
+      title: 'El código de descuento ingresado no es válido.',
+      icon: 'question',
       confirmButtonText: 'Cerrar'
     });
     return;
