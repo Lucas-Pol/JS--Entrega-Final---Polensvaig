@@ -183,6 +183,7 @@ function realizarCompra() {
   }).then((result) => {
     if (result.isConfirmed) {
       $('#formularioCompra').modal('hide');
+      saveStorage(finalPrice);
       clearCart(true);
     }
   });
@@ -191,6 +192,12 @@ function realizarCompra() {
 
 //Save in local storage
 function saveStorage(price){
+
+  const nombre = document.getElementById('nombre').value;
+  const apellido = document.getElementById('apellido').value;
+  const direccion = document.getElementById('direccion').value;
+  const email = document.getElementById('email').value;
+
   const purchase = {
     nombre: nombre,
     apellido: apellido,
@@ -199,10 +206,14 @@ function saveStorage(price){
     cart: cart,
     total: price,
   };
+
   const purchaseJSON = JSON.stringify(purchase);
-  localStorage.setItem('compra', purchaseJSON);
+  localStorage.setItem('compra', purchaseJSON); 
   
+  let savedItems = localStorage.getItem('compra');
+  console.log(savedItems);
 }
+
 
 // Clear cart
 function clearCart(fromCheckout = false) {
@@ -217,7 +228,6 @@ function clearCart(fromCheckout = false) {
     document.getElementById('apellido').value = '';
     document.getElementById('direccion').value = '';
     document.getElementById('email').value = '';
-    location.reload(); 
   }
 }
 
@@ -232,11 +242,3 @@ function clearCart(fromCheckout = false) {
 
 
 
-
-/* 
-opcional:
-- si el carrito está vacío al apretar "comprar" que tiré cartel de error (sweetalert)
-- tunear un poco la web (cambiar fotos de cd's, poner algun fondito)
-- ver de agregar boton de "quitar" al card de los cd's
-
- */
