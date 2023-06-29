@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 
 
-// Add to cart (esta función se ejecuta cuando el usuario hace click sobre el botón de agregar en las cards de los CD's y mediante el método "push" los agrego a mi constante "selectedDisc" y los incorporo de esta manera a mi carrito, reflejándose en el precio a abonar) 
+// Add to cart (esta función se ejecuta cuando el usuario hace click sobre el botón de "agregar" en las cards de los CD's y mediante el método "push" los agrego a mi constante "selectedDisc" y los incorporo de esta manera a mi carrito, reflejándose en el precio a abonar) 
 function addProd(id) {
   const selectedDisc = cds.find(disc => disc.id === id);
   if (selectedDisc) {
@@ -78,7 +78,7 @@ function addProd(id) {
   }
 }
 
-// Remove from cart (esta función se ejecuta de igual manera que la anterior pero sobre el botón de quitar en las cards para remover ese elemento de mi carrito y reflejarlo en el precio a abonar)
+// Remove from cart (esta función se ejecuta de igual manera que la anterior pero sobre el botón de "quitar" en las cards para remover ese elemento de mi carrito y reflejarlo en el precio a abonar)
 function removeProd(id) {
   const selectedIndex = cart.findIndex((disc) => disc.id === id);
   if (selectedIndex !== -1) {
@@ -107,7 +107,7 @@ function openModal() {
   $('#formularioCompra').modal('show');
 }
 
-// Purchase function (esta es mi función principal, por así decirlo, al menos en cuanto a complejidad. Es la función a partir de la cual se logra realizar la compra de los elementos que han sido agregados ("push") al carrito de compras. En un primer lugar, busqué que el usuario no pueda alcanzar al formulario de compra sin que haya agregado ningún elemento al carrito (le sale en ese caso un sweetalert de error). En segundo lugar, busqué que una vez verificada esta situación, se abra el modal con el formulario. Una vez abierto el formulario, que mi función tome los valores de los campos completados por el usuario (getElementById), y lo obligue a completar los campos de nombre, apellido, dirección y email (no así el de descuento), en caso de no completarlos le sale un sweetalert solicitando los complete. Una vez logrado eso, se ejecuta la parte de la función donde aparecen los distintos descuentos, a partir de ello tengo tres opciones: 1) el usuario no ingresa ningún código de descuento, en cuyo caso le sale el cartel de finalización de compra con el precio total a abonar; 2) el usuario ingresa un código de descuento válido (DESC10, DESC20, DESC30) en cuyo caso se aplican los descuentos correspondientes y se reflejan en el precio final a abonar; o 3) el usuario ingresa un código de descuento que no es válido y le sale un sweetalert de error). Finalmente, en caso de que se haya concretado la compra con éxito, se esconde el modal con el formulario, los datos los guardo en el local storage a través de la función saveStorage y el carrito se vacía como para que se pueda seguir comprando) 
+// Purchase function (esta es mi función principal, por así decirlo, al menos en cuanto a complejidad. Es la función a partir de la cual se logra realizar la compra de los elementos que han sido agregados ("push") al carrito de compras. En un primer lugar, busqué que el usuario no pueda alcanzar al formulario de compra sin que haya agregado algun elemento al carrito (le sale en ese caso un sweetalert de error). En segundo lugar, busqué que una vez verificada esta situación, se abra el modal con el formulario. Una vez abierto el formulario, que mi función tome los valores de los campos completados por el usuario (getElementById), y lo obligue a completar los campos de nombre, apellido, dirección y email (no así el de descuento)., en caso de no completarlos le sale un sweetalert solicitando los complete. Una vez logrado eso, se ejecuta la parte de la función donde aparecen los distintos descuentos, a partir de ello tengo tres opciones: 1) el usuario no ingresa ningún código de descuento, en cuyo caso le sale el cartel de finalización de compra con el precio total a abonar; 2) el usuario ingresa un código de descuento válido (DESC10, DESC20, DESC30) en cuyo caso se aplican los descuentos correspondientes y se reflejan en el precio final a abonar; o 3) el usuario ingresa un código de descuento que no es válido y le sale un sweetalert de error. Finalmente, en caso de que se haya concretado la compra con éxito, se esconde el modal con el formulario, los datos los guardo en el local storage a través de la función saveStorage, los muestro por consola acorde esa última función y el carrito se vacía como para que se pueda seguir comprando) 
 function realizarCompra() {
   if (cart.length === 0) {
     Swal.fire({
@@ -196,7 +196,7 @@ function saveStorage(price){
 }
 
 
-// Clear cart (esta es mi función para limpiar el carrito. La ejecuto tanto cuando el usuario agrega un elemento al carrito pero elije vaciarlo -con el botón de "vaciar carrito"-; como cuando ya se ejecutó completamente la función realizarCompra y la compra fue exitosa, como para que sea más dinámico y el usuario pueda seguir testeando la página. Tuve que agregarle un "if" y un getElementById para poder de esa manera resetear los valores del modal de formulario de compra)
+// Clear cart (esta es mi función para limpiar el carrito. La ejecuto tanto cuando el usuario agrega un elemento al carrito pero elige vaciarlo antes de realizar la compra -con el botón de "vaciar carrito"-; como cuando ya se ejecutó completamente la función realizarCompra y la compra fue exitosa, como para que sea más dinámico y el usuario pueda seguir testeando la página. Tuve que agregarle un "if" y un getElementById para poder de esa manera también resetear los valores del modal de formulario de compra y que el usuario pueda seguir ingresando nuevos datos)
 function clearCart(fromCheckout = false) {
   cart = [];
   finalPrice = 0;
