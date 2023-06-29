@@ -3,25 +3,6 @@ let finalPrice = 0;
 let cart = [];
 
 
-// Disc array (aca dejé el array de mis CD's que venía usando en mis entregas anteriores, aunque en realidad los datos para armar las cards de los CD's ahora los tomo desde mi archivo de data JSON)
-let cds = [
-  {
-    id: 1,
-    discName: "La cumbia del ciclo",
-    price: 100,
-  },
-  {
-    id: 2,
-    discName: "Binomio",
-    price: 200,
-  },
-  {
-    id: 3,
-    discName: "Ana María",
-    price: 300,
-  },
-];
-
 //Creates the disc cards (con esta función voy a crear las cards que van a contener la información de los CD's para efectuar la compra correspondiente, esta información viene de un archivo JSON donde tengo creados los objetos y que los capturo con un FETCH y los recorro con un FOREACH para que sean más dinámicos, y a partir del cual si quiero ir agregando más objetos puedo hacerlo sin necesidad de codearlos dentro de mi archivo de javascript. El CATCH lo utilicé para ver si me aparecía algún error y que me lo tire por consola)
 function createDiscCard(){
   fetch("dataBase.json")
