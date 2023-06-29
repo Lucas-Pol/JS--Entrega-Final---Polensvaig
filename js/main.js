@@ -22,7 +22,7 @@ let cds = [
   },
 ];
 
-//Creates the disc cards
+//Creates the disc cards (con esta función voy a crear las cards que van a contener la información de los CD's para efectuar la compra correspondiente, esta información viene de un archivo JSON donde tengo creados los objetos y que los capturo con un FETCH y los recorro con un FOREACH para que sean más dinámicos, y a partir del cual si quiero ir agregando más objetos puedo hacerlo sin necesidad de codearlos dentro de mi archivo de javascript. El CATCH lo utilicé para ver si me aparecía algún error y que me lo tire por consola)
 function createDiscCard(){
   fetch("dataBase.json")
   .then(resp => resp.json())
